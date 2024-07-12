@@ -1,0 +1,30 @@
+{
+  "name": "room_reservation",
+  "version": "1.0.0",
+  "description": "Readme file for my final Project in backend specialization, ending my ALX Software Engineering Programme at the ALX SE School.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delifted/room_reservation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/delifted/room_reservation/issues"
+  },
+  "homepage": "https://github.com/delifted/room_reservation#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "connect-redis": "^7.1.1",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.0",
+    "redis": "^4.6.15"
+  }
+}
