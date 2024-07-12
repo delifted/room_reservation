@@ -49,3 +49,9 @@ const port = config.port || 3000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
+const hotelRoutes = require('./routes/hotelRoutes');
+app.use('/api/hotels', hotelRoutes);
+
+const roomRoutes = require('./routes/roomRoutes');
+app.use('/api/rooms', roomRoutes);
