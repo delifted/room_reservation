@@ -45,13 +45,19 @@ mongoose.connection.on('error', (err) => {
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
 
-const port = config.port || 3000;
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
-
 const hotelRoutes = require('./routes/hotelRoutes');
 app.use('/api/hotels', hotelRoutes);
 
 const roomRoutes = require('./routes/roomRoutes');
 app.use('/api/rooms', roomRoutes);
+
+const bookingRoutes = require('./routes/bookingRoutes');
+app.use('/api/bookings', bookingRoutes);
+
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
+const port = config.port || 3000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
