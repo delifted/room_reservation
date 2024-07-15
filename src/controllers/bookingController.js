@@ -1,16 +1,48 @@
 const Booking = require('../models/bookingModel');
 const Room = require('../models/roomModel');
 
+// const createBooking = async (req, res) => {
+//     const { user, hotel, room, checkInDate, checkOutDate } = req.body;
+
+//     // Checking if the room is available for the given dates
+//     const existingBooking = await Booking.findOne({
+//         room,
+//         status: 'booked',
+//         $or: [
+//             { checkInDate: { $lt: checkOutDate, $gt: checkInDate } },
+//             { checkOutDate: { $gt: checkInDate, $lt: checkOutDate} }
+//         ]
+//     });
+
+//     if (existingBooking) {
+//         return res.status(400).json({ message: 'Room is not available for the selected period' });
+//     }
+
+//     const booking = new Booking({ user, hotel, room, checkInDate, checkOutDate });
+
+//     try {
+//         const savedBooking = await booking.save();
+//         res.status(201).json(savedBooking);
+//     } catch (error) {
+//         res.status(400).json({ message: error.message });
+//     }
+// };
+
 const createBooking = async (req, res) => {
     const { user, hotel, room, checkInDate, checkOutDate } = req.body;
+
+    // Convert dates to Date objects
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
 
     // Checking if the room is available for the given dates
     const existingBooking = await Booking.findOne({
         room,
         status: 'booked',
         $or: [
-            { checkInDate: { $lt: checkOutDate, $gt: checkInDate } },
-            { checkOutDate: { $gt: checkInDate, $lt: checkOutDate} }
+            { checkInDate: { $lt: checkOut }, checkOutDate: { $gt: checkIn } },
+            { checkInDate: { $lte: checkIn }, checkOutDate: { $gte: checkIn } },
+            { checkInDate: { $lte: checkOut }, checkOutDate: { $gte: checkOut } }
         ]
     });
 
@@ -27,6 +59,7 @@ const createBooking = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
 
 const getBooking = async (req, res) => {
     try {

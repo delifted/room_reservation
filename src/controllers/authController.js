@@ -46,4 +46,9 @@ const getCurrentUser = async (req, res) => {
     }
 };
 
-module.exports = { register, login, getCurrentUser };
+const getMe = (req, res) => {
+    console.log('Authenticated User:', req.user);
+    res.status(200).json(req.user);
+};
+
+module.exports = { getMe, register, login, getCurrentUser };
