@@ -6,11 +6,8 @@ const redis = require('redis');
 const session = require('express-session');
 const RedisStore = require('connect-redis').default;
 const config = require('./config/config');
-const swaggerSetup = require('../srcc/swagger');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDoc = require('../room_res.json');
-
-// const RedisStore = connectRedis(session);
+const swaggerSetup = require('./swagger');
+require('dotenv').config(); // Ensures to load environment variables
 
 const app = express();
 
@@ -18,6 +15,10 @@ const app = express();
 const redisClient = redis.createClient({
     host: config.redisHost,
     port: config.redisPort
+});
+
+redisClient.on('error', (err) => {
+    console.error('Redis error: ', err);
 });
 
 // Middleware
@@ -44,8 +45,6 @@ mongoose.connection.on('error', (err) => {
     console.log(`Error connecting to MongoDB: ${err}`);
 });
 
-swaggerSetup(app);
-
 // Routes
 const userRoutes = require('./routes/userRoutes');
 app.use('/api/users', userRoutes);
@@ -59,10 +58,7 @@ app.use('/api/rooms', roomRoutes);
 const bookingRoutes = require('./routes/bookingRoutes');
 app.use('/api/bookings', bookingRoutes);
 
-const authRoutes = require('./routes/authRoutes');
-app.use('/api/auth', authRoutes);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+swaggerSetup(app);
 
 const port = config.port || 3000;
 app.listen(port, () => {

@@ -1,0 +1,399 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Room Reservation API",
+      "version": "1.0.0",
+      "description": "API for managing room reservations in a hotel."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000/api"
+      }
+    ],
+    "paths": {
+      "/users/register": {
+        "post": {
+          "summary": "Register a new user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": { "type": "string" },
+                    "email": { "type": "string", "format": "email" },
+                    "password": { "type": "string", "minLength": 6 }
+                  },
+                  "required": ["username", "email", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User registered successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "token": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/login": {
+        "post": {
+          "summary": "Log in a user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": { "type": "string", "format": "email" },
+                    "password": { "type": "string", "minLength": 6 }
+                  },
+                  "required": ["email", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User logged in successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "token": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/rooms": {
+        "get": {
+          "summary": "Get all rooms",
+          "responses": {
+            "200": {
+              "description": "List of rooms",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": { "type": "string" },
+                        "roomNumber": { "type": "string" },
+                        "roomType": { "type": "string" },
+                        "price": { "type": "number" },
+                        "availability": { "type": "boolean" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new room",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "roomNumber": { "type": "string" },
+                    "roomType": { "type": "string" },
+                    "price": { "type": "number" },
+                    "availability": { "type": "boolean" }
+                  },
+                  "required": ["roomNumber", "roomType", "price", "availability"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Room created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "_id": { "type": "string" },
+                      "roomNumber": { "type": "string" },
+                      "roomType": { "type": "string" },
+                      "price": { "type": "number" },
+                      "availability": { "type": "boolean" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/rooms/{id}": {
+        "get": {
+          "summary": "Get a room by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the room",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Room details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "_id": { "type": "string" },
+                      "roomNumber": { "type": "string" },
+                      "roomType": { "type": "string" },
+                      "price": { "type": "number" },
+                      "availability": { "type": "boolean" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a room",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the room",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "roomNumber": { "type": "string" },
+                    "roomType": { "type": "string" },
+                    "price": { "type": "number" },
+                    "availability": { "type": "boolean" }
+                  },
+                  "required": ["roomNumber", "roomType", "price", "availability"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Room updated successfully"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a room",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the room",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Room deleted successfully"
+            }
+          }
+        }
+      },
+      "/bookings": {
+        "get": {
+          "summary": "Get all bookings",
+          "responses": {
+            "200": {
+              "description": "List of bookings",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "_id": { "type": "string" },
+                        "roomId": { "type": "string" },
+                        "userId": { "type": "string" },
+                        "checkInDate": { "type": "string", "format": "date" },
+                        "checkOutDate": { "type": "string", "format": "date" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new booking",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "roomId": { "type": "string" },
+                    "userId": { "type": "string" },
+                    "checkInDate": { "type": "string", "format": "date" },
+                    "checkOutDate": { "type": "string", "format": "date" }
+                  },
+                  "required": ["roomId", "userId", "checkInDate", "checkOutDate"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Booking created successfully",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "_id": { "type": "string" },
+                      "roomId": { "type": "string" },
+                      "userId": { "type": "string" },
+                      "checkInDate": { "type": "string", "format": "date" },
+                      "checkOutDate": { "type": "string", "format": "date" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/bookings/{id}": {
+        "get": {
+          "summary": "Get a booking by ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the booking",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Booking details",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "_id": { "type": "string" },
+                      "roomId": { "type": "string" },
+                      "userId": { "type": "string" },
+                      "checkInDate": { "type": "string", "format": "date" },
+                      "checkOutDate": { "type": "string", "format": "date" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a booking",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the booking",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "roomId": { "type": "string" },
+                    "userId": { "type": "string" },
+                    "checkInDate": { "type": "string", "format": "date" },
+                    "checkOutDate": { "type": "string", "format": "date" }
+                  },
+                  "required": ["roomId", "userId", "checkInDate", "checkOutDate"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Booking updated successfully"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a booking",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the booking",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Booking deleted successfully"
+            }
+          }
+        }
+      }
+    }
+  }
+  
