@@ -9,3 +9,4 @@ npm-debug.log
 /src/setupTests.js
 /src/reportWebVitals.js
 
+.vercel

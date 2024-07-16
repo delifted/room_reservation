@@ -4,6 +4,7 @@
   "description": "Readme file for my final Project in backend specialization, ending my ALX Software Engineering Programme at the ALX SE School.",
   "main": "index.js",
   "scripts": {
+    "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
