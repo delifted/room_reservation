@@ -62,7 +62,7 @@ The Hotel and Room Reservation System is a web application designed to facilitat
 
 ## Project Presentation Slide
 
-![Google Drive Presentation Slide](https://docs.google.com/presentation/d/1RoT6yJPa4A5H5Z5dh2LyLDHzJLabUZluQ5rGJ3TL6iQ/edit?usp=sharing)
+[Google Drive Presentation Slide](https://docs.google.com/presentation/d/1RoT6yJPa4A5H5Z5dh2LyLDHzJLabUZluQ5rGJ3TL6iQ/edit?usp=sharing)
 
 ## Installation
 
