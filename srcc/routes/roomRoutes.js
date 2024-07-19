@@ -1,6 +1,6 @@
 const express = require('express');
 const { addRoom, getRooms, getRoom, updateRoom, deleteRoom } = require('../controllers/roomController');
-const router = express.Router();
+const router = express.Router({ mergeParams: true }); // Ensure mergeParams is set
 
 router.post('/', addRoom);
 router.get('/', getRooms);

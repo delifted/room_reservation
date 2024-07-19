@@ -1,0 +1,80 @@
+Get all Hotels
+curl -X GET http://localhost:3000/api/hotels
+
+Get a specific hotel by ID:
+curl -X GET http://localhost:3000/api/hotels/{hotelId}
+
+Create a new hotel object:
+curl -X POST http://localhost:3000/api/hotels -H "Content-Type: application/json" -d '{
+  "name": "Parkway Inn",
+  "location": "Ikeja, LA",
+  "rating": 5
+}'
+
+Update a hotel by ID:
+curl -X PUT http://localhost:3000/api/hotels/{hotelId} -H "Content-Type: application/json" -d '{
+  "name": "Parkway Inn",
+  "location": "Ikeja, LA",
+  "rating": 3
+}'
+
+ROOM ENDPOINTS
+Get all rooms for a specific hotel:
+curl -X GET http://localhost:3000/api/hotels/{hotelId}/rooms
+
+Get a specific room by ID:
+curl -X GET http://localhost:3000/api/hotels/{hotelId}/rooms/{roomId}
+
+Create a new room for a specific hotel:
+curl -X POST http://localhost:3000/api/hotels/{hotelId}/rooms -H "Content-Type: application/json" -d '{
+    "number": "103",
+    "type": "Suite",
+    "price": 250,
+    "available": true
+}'
+
+Update a room by ID:
+curl -X PUT http://localhost:3000/api/hotels/{hotelId}/rooms/{roomId} -H "Content-Type: application/json" -d '{
+  "type": "Suite",
+  "price": 300,
+  "available": false
+}'
+
+Delete a Room by ID:
+curl -X DELETE http://localhost:3000/api/hotels/{hotelId}/rooms/{roomId}
+
+BOOKINGS
+Creating a Booking for a Room:
+curl -X POST http://localhost:3000/api/hotels/66990683bf4526dfcb7e6161/rooms/669907a9bf4526dfcb7e616a/bookings -H "Content-Type: application/json" -d '{
+    "user": "6697a67cc909f14287deedef",
+    "guestEmail": "oluwasegun@delifted.com.ng",
+    "checkInDate": "2024-10-14",
+    "checkOutDate": "2024-10-14"
+}'
+
+Get all Bookings on the platform
+curl -X GET http://localhost:3000/api/bookings
+
+Get all Bookings for a specific room:
+curl -X GET http://localhost:3000/api/hotels/{hotelId}/rooms/{roomId}/bookings
+
+Get a specific Booking by ID:
+curl -X GET http://localhost:3000/api/hotels/{hotelId}/rooms/{roomId}/bookings/{bookingId}
+
+Delete a booking by ID:
+curl -X DELETE http://localhost:3000/api/hotels/{hotelId}/rooms/{roomId}/bookings/{bookingId}
+
+
+USER
+User Registration:
+curl -X POST http://localhost:3000/api/users/register -H "Content-Type: application/json" -d '{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "testpassword"
+}'
+
+User login:
+curl -X POST http://localhost:3000/api/users/login -H "Content-Type: application/json" -d '{
+  "email": "testuser@example.com",
+  "password": "testpassword"
+}'

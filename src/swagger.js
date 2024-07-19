@@ -1,14 +1,18 @@
 // swagger.js
-const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerDoc = require('./docs/room_res.json');
 const swaggerUi = require('swagger-ui-express');
 
-const swaggerOptions = {
-    swaggerDefinition: {
+const options = {
+    definition: {
         openapi: '3.0.0',
         info: {
             title: 'Room Reservation API',
             version: '1.0.0',
             description: 'API documentation for the Room Reservation platform',
+            contact: {
+                name: "Oluwasegun Oyelola",
+                email: "oluwasegun@delifted.com.ng"
+            },
         },
         servers: [
             {
@@ -16,11 +20,9 @@ const swaggerOptions = {
             },
         ],
     },
-    apis: ['./src/routes/*.js'],
+    apis: ['./routes/*.js'], // Path to the API docs
 };
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
-module.exports = (app) => {
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-};
+module.exports = { swaggerUi, swaggerDoc };
+
